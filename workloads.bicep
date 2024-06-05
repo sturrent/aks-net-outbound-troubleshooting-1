@@ -6,6 +6,12 @@ provider kubernetes with {
   kubeConfig: kubeConfig
 }
 
+resource coreNamespace_workbench1 'core/Namespace@v1' = {
+  metadata: {
+    name: 'workbench1'
+  }
+}
+
 resource coreConfigMap_dbMonitorConfig 'core/ConfigMap@v1' = {
   metadata: {
     name: 'db-monitor-config'
@@ -86,12 +92,6 @@ resource appsDeployment_dbCheck 'apps/Deployment@v1' = {
         ]
       }
     }
-  }
-}
-
-resource coreNamespace_workbench1 'core/Namespace@v1' = {
-  metadata: {
-    name: 'workbench1'
   }
 }
 

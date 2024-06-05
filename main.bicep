@@ -158,7 +158,7 @@ module roleAuthorization 'aks-auth.bicep' = {
   }
 }
 
-module kubernetes 'workloads.bicep' = {
+module kubernetes './workloads.bicep' = {
   name: 'buildbicep-deploy'
   scope: clusterrg
   dependsOn: [

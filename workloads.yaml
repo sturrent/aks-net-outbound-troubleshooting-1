@@ -1,4 +1,9 @@
 apiVersion: v1
+kind: Namespace
+metadata:
+  name: workbench1
+---
+apiVersion: v1
 kind: ConfigMap
 metadata:
   name: db-monitor-config
@@ -49,11 +54,6 @@ spec:
             configMapKeyRef:
               name: db-monitor-config
               key: dbname
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: workbench1
 ---
 apiVersion: v1
 kind: ServiceAccount
