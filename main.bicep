@@ -25,7 +25,7 @@ resource dbrg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   location: location
 }
 
-module aksvnet './aks-vnet.bicep' = {
+module aksvnet './modules/aks-vnet.bicep' = {
   name: 'aks-vnet'
   scope: vnetrg
   params: {
@@ -45,7 +45,7 @@ module aksvnet './aks-vnet.bicep' = {
   }
 }
 
-module dbvnet './db-vnet.bicep' = {
+module dbvnet './modules/db-vnet.bicep' = {
   name: 'db-vnet'
   scope: dbrg
   params: {
@@ -72,7 +72,7 @@ module dbvnet './db-vnet.bicep' = {
   }
 }
 
-module privatednszone './private-dns-zone.bicep' = {
+module privatednszone './modules/private-dns-zone.bicep' = {
   name: 'private-dns-zone'
   scope: dbrg
   dependsOn: [
@@ -87,7 +87,7 @@ module privatednszone './private-dns-zone.bicep' = {
   }
 }
 
-module vnetpeeringdb 'vnetpeering.bicep' = {
+module vnetpeeringdb './modules/vnetpeering.bicep' = {
   scope: dbrg
   name: 'vnetpeering'
   params: {
@@ -103,7 +103,7 @@ module vnetpeeringdb 'vnetpeering.bicep' = {
   }
 }
 
-module vnetpeeringaks 'vnetpeering.bicep' = {
+module vnetpeeringaks './modules/vnetpeering.bicep' = {
   scope: vnetrg
   name: 'vnetpeering2'
   params: {
@@ -119,7 +119,7 @@ module vnetpeeringaks 'vnetpeering.bicep' = {
   }
 }
 
-module postgresqlModule 'postgresql-flexible-server.bicep' = {
+module postgresqlModule './modules/postgresql-flexible-server.bicep' = {
   scope: dbrg
   name: 'postgresql-flexible-server'
   dependsOn: [
@@ -135,7 +135,7 @@ module postgresqlModule 'postgresql-flexible-server.bicep' = {
   }
 }
 
-module akscluster './aks-cluster.bicep' = {
+module akscluster './modules/aks-cluster.bicep' = {
   name: resourcePrefix
   scope: clusterrg
   dependsOn: [ aksvnet, privatednszone ]
@@ -146,7 +146,7 @@ module akscluster './aks-cluster.bicep' = {
   }
 }
 
-module roleAuthorization 'aks-auth.bicep' = {
+module roleAuthorization './modules/aks-auth.bicep' = {
   name: 'roleAuthorization'
   scope: vnetrg
   dependsOn: [
@@ -158,7 +158,7 @@ module roleAuthorization 'aks-auth.bicep' = {
   }
 }
 
-module kubernetes './workloads.bicep' = {
+module kubernetes './modules/workloads.bicep' = {
   name: 'buildbicep-deploy'
   scope: clusterrg
   dependsOn: [
