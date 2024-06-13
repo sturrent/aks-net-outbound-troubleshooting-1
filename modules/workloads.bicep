@@ -6,12 +6,6 @@ provider kubernetes with {
   kubeConfig: kubeConfig
 }
 
-resource coreNamespace_workbench1 'core/Namespace@v1' = {
-  metadata: {
-    name: 'workbench1'
-  }
-}
-
 resource coreConfigMap_dbMonitorConfig 'core/ConfigMap@v1' = {
   metadata: {
     name: 'db-monitor-config'
@@ -98,7 +92,7 @@ resource appsDeployment_dbCheck 'apps/Deployment@v1' = {
 resource coreServiceAccount_runner1 'core/ServiceAccount@v1' = {
   metadata: {
     name: 'runner1'
-    namespace: 'workbench1'
+    namespace: 'kube-system'
   }
 }
 
@@ -110,7 +104,7 @@ resource rbacAuthorizationK8sIoClusterRoleBinding_runner1Admin 'rbac.authorizati
     {
       kind: 'ServiceAccount'
       name: 'runner1'
-      namespace: 'workbench1'
+      namespace: 'kube-system'
     }
   ]
   roleRef: {
@@ -123,7 +117,7 @@ resource rbacAuthorizationK8sIoClusterRoleBinding_runner1Admin 'rbac.authorizati
 resource appsDeployment_runner1 'apps/Deployment@v1' = {
   metadata: {
     name: 'runner1'
-    namespace: 'workbench1'
+    namespace: 'kube-system'
     labels: {
       app: 'runner1'
     }

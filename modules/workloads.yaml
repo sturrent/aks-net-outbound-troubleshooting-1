@@ -1,9 +1,4 @@
 apiVersion: v1
-kind: Namespace
-metadata:
-  name: workbench1
----
-apiVersion: v1
 kind: ConfigMap
 metadata:
   name: db-monitor-config
@@ -59,7 +54,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: runner1
-  namespace: workbench1
+  namespace: kube-system
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -68,7 +63,7 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: runner1
-  namespace: workbench1
+  namespace: kube-system
 roleRef:
   kind: ClusterRole
   name: admin
@@ -78,7 +73,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: runner1
-  namespace: workbench1
+  namespace: kube-system
   labels:
     app: runner1
 spec:
