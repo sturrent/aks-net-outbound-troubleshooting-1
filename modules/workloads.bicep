@@ -12,7 +12,7 @@ resource coreConfigMap_dbMonitorConfig 'core/ConfigMap@v1' = {
     namespace: 'default'
   }
   data: {
-    pghost: 'postgresdb1-workbench.postgres.database.azure.com'
+    pghost: 'db1.postgresdb1-workbench-lab1.private.postgres.database.azure.com'
     pguser: 'admindb'
     pgpass: 'T3mp0r4l'
     dbname: 'postgres'

@@ -2,14 +2,14 @@ targetScope = 'subscription'
 
 param location string = 'eastus2'
 param userName string = 'lab1'
-param resourcePrefix string = 'workbench'
+param resourceName string = 'workbench'
 param zoneName string = 'postgresdb1-workbench-lab1.private.postgres.database.azure.com'
 param recordName string = 'db1'
 
 var postgresqlName = 'postgresql-server-${uniqueString(subscription().id)}'
-var aksResourceGroupName = 'aks-${resourcePrefix}-${userName}-rg'
-var vnetResourceGroupName = 'vnet-${resourcePrefix}-${userName}-rg'
-var dbResourceGroupName = 'db-${resourcePrefix}-${userName}-rg'
+var aksResourceGroupName = 'aks-${resourceName}-${userName}-rg'
+var vnetResourceGroupName = 'vnet-${resourceName}-${userName}-rg'
+var dbResourceGroupName = 'db-${resourceName}-${userName}-rg'
 var contributorRoleId = subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'b24988ac-6180-42a0-ab88-20f7382dd24c')
 
 resource clusterrg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
@@ -138,12 +138,12 @@ module postgresqlModule './modules/postgresql-flexible-server.bicep' = {
 }
 
 module akscluster './modules/aks-cluster.bicep' = {
-  name: resourcePrefix
+  name: resourceName
   scope: clusterrg
   dependsOn: [ aksvnet, privatednszone ]
   params: {
     location: location
-    clusterName: resourcePrefix
+    clusterName: 'aks-${resourceName}'
     aksSubnetId: aksvnet.outputs.akssubnet
   }
 }
