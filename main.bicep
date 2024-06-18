@@ -6,7 +6,7 @@ param resourceName string = 'workbench'
 param zoneName string = 'postgresdb1-workbench-lab1.private.postgres.database.azure.com'
 param recordName string = 'db1'
 
-var postgresqlName = 'postgresql-server-${uniqueString(subscription().id)}'
+var postgresqlName = 'postgresql-${userName}-${uniqueString(subscription().id)}'
 var aksResourceGroupName = 'aks-${resourceName}-${userName}-rg'
 var vnetResourceGroupName = 'vnet-${resourceName}-${userName}-rg'
 var dbResourceGroupName = 'db-${resourceName}-${userName}-rg'
